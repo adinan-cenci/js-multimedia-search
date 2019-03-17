@@ -1,0 +1,19 @@
+interface OnlineServiceInterface extends ServiceInterface 
+{
+    /** @param array $credentials */
+    credentials($credentials);
+
+    getRequestUrl(); // return string
+
+    /** 
+     * @param string $url
+     * @return Promise 
+     */
+    makeRequest($url); // return response
+
+    /** 
+     * @param string $response
+     * @return array 
+     */
+    parseResponse($response); // return array
+}

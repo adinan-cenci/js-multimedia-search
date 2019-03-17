@@ -1,0 +1,23 @@
+{
+  "name": "js-multimedia-search",
+  "version": "1.0.0",
+  "description": "multimedia-search",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adinan-cenci/js-multimedia-search.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adinan-cenci/js-multimedia-search/issues"
+  },
+  "homepage": "https://github.com/adinan-cenci/js-multimedia-search#readme",  
+}

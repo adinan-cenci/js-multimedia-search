@@ -1,0 +1,16 @@
+interface ServiceInterface
+{
+    /**
+     * @param Object terms
+     * @return Promise
+     */
+    search(terms);
+    /*
+    title
+    artist
+    genres
+    soundtrack
+    url
+    href
+    */
+}

@@ -1,7 +1,8 @@
-var Service    = require('./Service.js');
+var Service = require('./Service.js');
 
 class FileSystem extends Service 
 {
+    /*
     constructor() 
     {
         this.dirs     = [];
@@ -79,7 +80,7 @@ class FileSystem extends Service
         }
     }
 
-    public static function scanForMp3Files(directory) 
+    scanForMp3Files(directory) 
     {
         return array_filter(self::getFilesRecusirvely(directory), function(file)
         {
@@ -87,7 +88,7 @@ class FileSystem extends Service
         });
     }
 
-    public static function getFilesRecusirvely(directory) 
+    getFilesRecusirvely(directory) 
     {
         entries    = self::scanDir(directory);
         files      = array_filter(entries, 'is_file');
@@ -100,7 +101,7 @@ class FileSystem extends Service
         return files;
     }
 
-    public static function scanDir(dir) 
+    scanDir(dir) 
     {
         contents = scandir(dir);
         contents = array_filter(contents, function(entr) {
@@ -114,4 +115,5 @@ class FileSystem extends Service
 
         return contents;
     }
+    */
 }

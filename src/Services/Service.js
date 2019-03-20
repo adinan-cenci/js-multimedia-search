@@ -76,7 +76,7 @@ Service.compare = function(var1, var2)
     return Service.similar_text(var1, var2);
 }
 
-// thanks to https://searchcode.com/codesearch/view/69253319/
+// Source: https://searchcode.com/codesearch/view/69253319/
 Service.similar_text = function(first, second, percent = 1) 
 {
     if (first === null || second === null || typeof first === 'undefined' || typeof second === 'undefined') {

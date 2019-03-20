@@ -61,10 +61,4 @@ class Youtube extends OnlineService
     }
 }
 
-dz = new Youtube();
-dz.search({artistName: 'Angra', title: 'Rebirth'}).then(function(res) 
-{
-    console.log(res);
-});
-
 module.exports = Youtube;

@@ -16,7 +16,7 @@ class Search
         results = [];
         for (let k in this.services) {
             let s = this.services[k];
-            results = results.concat(s->search(terms));
+            results = results.concat(s.search(terms));
         }
         return results;
     }

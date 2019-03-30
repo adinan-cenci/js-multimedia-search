@@ -1,5 +1,5 @@
 {
-  "name": "js-multimedia-search",
+  "name": "multimedia-search",
   "version": "1.0.0",
   "description": "multimedia-search",
   "main": "index.js",
@@ -19,5 +19,5 @@
   "bugs": {
     "url": "https://github.com/adinan-cenci/js-multimedia-search/issues"
   },
-  "homepage": "https://github.com/adinan-cenci/js-multimedia-search#readme"  
+  "homepage": "https://github.com/adinan-cenci/js-multimedia-search#readme"
 }

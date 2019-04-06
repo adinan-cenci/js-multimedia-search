@@ -2,15 +2,14 @@ var OnlineService = require('./OnlineService.js');
 
 class Youtube extends OnlineService
 {
-    search(terms)
+    async search(terms)
     {
-        this.terms      = terms;
-        var gxi = this;
-        return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(function(html)
+        this.terms  = terms;
+        return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(async (html) =>
         {
-            var string      = gxi.scrapJson(html);
-            var data        = gxi.parseResponse(string);
-            return          data.filter(gxi.compareWithparameters.bind(gxi));
+            var string      = this.scrapJson(html);
+            var data        = this.parseResponse(string);
+            return          data.filter(this.compareWithparameters.bind(this));
         });
     }
 
@@ -50,7 +49,7 @@ class Youtube extends OnlineService
 
             results.push(
             {
-                'service'       : 'YouTube', 
+                'service'       : 'YouTube',
                 'id'            : content.videoRenderer.videoId,
                 'title'         : content.videoRenderer.title.simpleText,
                 'thumbnailSrc'  : content.videoRenderer.thumbnail.thumbnails[0].url,

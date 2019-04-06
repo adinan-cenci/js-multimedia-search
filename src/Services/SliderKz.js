@@ -21,11 +21,11 @@ class SliderKz extends OnlineService
         for(let s of json.audios[k]) {
             results.push(
             {
-                'service'   : 'SliderKz', 
+                'service'   : 'SliderKz',
                 'id'        : s.id,
                 'duration'  : s.duration,
                 'title'     : s.tit_art,
-                'src'       : 'https://slider.kz/download/'+s.id+'/'+s.duration+'/'+s.url+'/'+s.tit_art+'.mp3?extra='+s.extra
+                'src'       : 'http://slider.kz/download/'+s.id+'/'+s.duration+'/'+s.url+'/'+s.tit_art+'.mp3?extra='+s.extra
             });
         }
 

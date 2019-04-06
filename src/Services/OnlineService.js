@@ -3,43 +3,42 @@ const http     = require('http');
 const https    = require('https');
 const url      = require('url');
 
-class OnlineService extends Service 
+class OnlineService extends Service
 {
-    credentials(credentials) 
+    credentials(credentials)
     {
         this.credentials = credentials;
         return this;
     }
 
-    async search(terms) 
+    async search(terms)
     {
         this.terms = terms;
-        var gxi = this;
-        return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(function(response) 
+        return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(async (response) =>
         {
-            var data        = gxi.parseResponse(response);
-            return          data.filter(gxi.compareWithparameters.bind(gxi));
+            var data        = this.parseResponse(response);
+            return          data.filter(this.compareWithparameters.bind(this));
         });
     }
 
-    parseResponse($response) 
+    parseResponse($response)
     {
         // ...
     }
 
-    getRequestUrl() 
+    getRequestUrl()
     {
         return 'http://the-web-site.com?q='+encodeURIComponent(this.getMediaSearchQuery());
     }
 
-    getRequestOptions() 
+    getRequestOptions()
     {
         return {};
     }
 
-    getMediaSearchQuery() 
+    getMediaSearchQuery()
     {
-        var query = 
+        var query =
         (this.terms.artistName ? this.terms.artistName+' ' : '')+
         (this.terms.soundtrack && !this.terms.artistName ? this.terms.soundtrack+' ' : '')+
         this.terms.title;
@@ -48,39 +47,39 @@ class OnlineService extends Service
     }
 }
 
-OnlineService.makeRequest = async function(address, options = {}) 
+OnlineService.makeRequest = async function(address, options = {})
 {
     var myUrl     = url.parse(address);
     var protocol  = myUrl.protocol == 'https:' ? https : http;
 
-    var defaultOptions = 
+    var defaultOptions =
     {
-        hostname  : myUrl.hostname, 
+        hostname  : myUrl.hostname,
         port      : myUrl.port,
         path      : myUrl.path,
         agent     : false  // Create a new agent just for this one request
-    };    
+    };
 
     var options = {...defaultOptions, ...options};
 
-    return new Promise(function(success, fail)
+    return new Promise(async function(success, fail)
     {
-        protocol.get(options, (res) => 
+        protocol.get(options, (res) =>
         {
             if (res.statusCode !== 200) {
                 fail('Error: ' + res.statusCode);
             }
-          
+
             res.setEncoding('utf8');
-            
+
             let rawData = '';
 
-            res.on('data', function(chunk) 
+            res.on('data', function(chunk)
             {
                 rawData += chunk;
             });
 
-            res.on('end', function() 
+            res.on('end', function()
             {
                 success(rawData);
             });

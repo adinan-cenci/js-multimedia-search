@@ -1,13 +1,13 @@
 var OnlineService = require('./OnlineService.js');
 
-class Deezer extends OnlineService 
+class Deezer extends OnlineService
 {
-    getRequestUrl() 
+    getRequestUrl()
     {
         return 'https://api.deezer.com/search?q='+encodeURIComponent(this.getMediaSearchQuery());
     }
-    
-    parseResponse(string) 
+
+    parseResponse(string)
     {
         var json        = JSON.parse(string);
         var results     = [];
@@ -20,11 +20,12 @@ class Deezer extends OnlineService
 
             results.push(
             {
-                'id'            : content.id, 
-                'title'         : content.title_short, 
-                'artist'        : content.artist.name, 
-                'thumbnailSrc'  : content.album.cover_medium, 
-                'href'          : content.link, 
+                'service'       : 'Deezer', 
+                'id'            : content.id,
+                'title'         : content.title_short,
+                'artist'        : content.artist.name,
+                'thumbnailSrc'  : content.album.cover_medium,
+                'href'          : content.link,
                 'preview'       : content.preview
             });
         }

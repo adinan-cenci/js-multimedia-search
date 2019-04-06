@@ -1,12 +1,12 @@
 var OnlineService = require('./OnlineService.js');
 
-class Youtube extends OnlineService 
+class Youtube extends OnlineService
 {
-    search(terms) 
+    search(terms)
     {
         this.terms      = terms;
         var gxi = this;
-        return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(function(html) 
+        return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(function(html)
         {
             var string      = gxi.scrapJson(html);
             var data        = gxi.parseResponse(string);
@@ -14,17 +14,17 @@ class Youtube extends OnlineService
         });
     }
 
-    getRequestUrl() 
+    getRequestUrl()
     {
         return 'https://www.youtube.com/results?search_query='+encodeURIComponent(this.getMediaSearchQuery());
     }
 
-    getRequestOptions() 
+    getRequestOptions()
     {
         return {'headers': {'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36'}};
     }
-    
-    scrapJson(html) 
+
+    scrapJson(html)
     {
         var matches = html.match(/window\[\"ytInitialData\"\] = (.+);\n    window/);
         if (! matches) {
@@ -34,7 +34,7 @@ class Youtube extends OnlineService
         return matches[1];
     }
 
-    parseResponse(string) 
+    parseResponse(string)
     {
         var json       = JSON.parse(string);
         var results    = [];
@@ -47,12 +47,13 @@ class Youtube extends OnlineService
             if (!content.videoRenderer || !content.videoRenderer.videoId) {
                 continue;
             }
-            
+
             results.push(
             {
-                'id'            : content.videoRenderer.videoId, 
-                'title'         : content.videoRenderer.title.simpleText, 
-                'thumbnailSrc'  : content.videoRenderer.thumbnail.thumbnails[0].url, 
+                'service'       : 'YouTube', 
+                'id'            : content.videoRenderer.videoId,
+                'title'         : content.videoRenderer.title.simpleText,
+                'thumbnailSrc'  : content.videoRenderer.thumbnail.thumbnails[0].url,
                 'href'          : 'http://youtube.com/watch?v='+content.videoRenderer.videoId
             });
         }

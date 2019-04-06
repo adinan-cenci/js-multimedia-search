@@ -1,23 +1,24 @@
 var OnlineService = require('./OnlineService.js');
 
-class YoutubeApi extends OnlineService 
+class YoutubeApi extends OnlineService
 {
-    getRequestUrl() 
+    getRequestUrl()
     {
         return 'https://www.googleapis.com/youtube/v3/search/?part=snippet&key='+this.credentials.key+'&q='+encodeURIComponent(this.getMediaSearchQuery());
     }
-    
-    parseResponse(string) 
+
+    parseResponse(string)
     {
         var json       = JSON.parse(string);
         var results    = [];
 
-        for (var content of json.items) {           
+        for (var content of json.items) {
             results.push(
             {
-                'id'            : content.id.videoId, 
-                'title'         : content.snippet.title, 
-                'thumbnailSrc'  : content.snippet.thumbnails.medium.url, 
+                'service'       : 'YouTubeApi', 
+                'id'            : content.id.videoId,
+                'title'         : content.snippet.title,
+                'thumbnailSrc'  : content.snippet.thumbnails.medium.url,
                 'href'          : 'http://youtube.com/watch?v='+content.id.videoId
             });
         }

@@ -25,7 +25,7 @@ class Youtube extends OnlineService
 
     scrapJson(html)
     {
-        var matches = html.match(/window\[\"ytInitialData\"\] = (.+);\n    window/);
+        var matches = html.match(/window\[\"ytInitialData\"\] ?= ?(.+);\n +window/);
         if (! matches) {
             return null;
         }
@@ -37,7 +37,6 @@ class Youtube extends OnlineService
     {
         var json       = JSON.parse(string);
         var results    = [];
-
         if (! json.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents[0].itemSectionRenderer.contents) {
             return [];
         }
@@ -51,7 +50,7 @@ class Youtube extends OnlineService
             {
                 'service'       : 'YouTube',
                 'id'            : content.videoRenderer.videoId,
-                'title'         : content.videoRenderer.title.simpleText,
+                'title'         : content.videoRenderer.title.runs[0].text,
                 'thumbnailSrc'  : content.videoRenderer.thumbnail.thumbnails[0].url,
                 'href'          : 'http://youtube.com/watch?v='+content.videoRenderer.videoId
             });

@@ -21,6 +21,12 @@ class OnlineService extends Service
         });
     }
 
+    test(terms) 
+    {
+        this.terms = terms;
+        console.log(this.getMediaSearchQuery())
+    }
+
     parseResponse($response)
     {
         // ...

@@ -7,9 +7,9 @@ yt = new Youtube();
 sk = new SliderKz();
 
 
-sh.addService(yt).addService(sk).returnFirst();
+sh.addService(yt).addService(sk);
 
-sh.search({'artistName': 'Angra', 'title': 'Rebirth'}).then(async function(result)
+sh.search({'artist': 'Angra', 'title': 'Rebirth'}).then(async function(result)
 {
     console.log(result);
 })

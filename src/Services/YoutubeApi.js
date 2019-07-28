@@ -4,7 +4,7 @@ class YoutubeApi extends OnlineService
 {
     getRequestUrl()
     {
-        return 'https://www.googleapis.com/youtube/v3/search/?part=snippet&key='+this.credentials.key+'&q='+encodeURIComponent(this.getMediaSearchQuery());
+        return 'https://www.googleapis.com/youtube/v3/search/?part=snippet&key='+this.settings.apiKey+'&q='+encodeURIComponent(this.getMediaSearchQuery());
     }
 
     parseResponse(string)
@@ -15,7 +15,7 @@ class YoutubeApi extends OnlineService
         for (var content of json.items) {
             results.push(
             {
-                'service'       : 'YouTubeApi', 
+                'service'       : 'YouTubeApi',
                 'id'            : content.id.videoId,
                 'title'         : content.snippet.title,
                 'thumbnailSrc'  : content.snippet.thumbnails.medium.url,
@@ -26,3 +26,5 @@ class YoutubeApi extends OnlineService
         return results;
     }
 }
+
+module.exports = YoutubeApi;

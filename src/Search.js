@@ -20,17 +20,15 @@ class Search
 
     async search(terms)
     {
-        var gxi = this;
-
-        return new Promise(async function(success, fail)
+        return new Promise(async (success, fail) =>
         {
             var all = [];
-            for (let k in gxi.services) {
-                let s = gxi.services[k];
+            for (let k in this.services) {
+                let s = this.services[k];
 
                 var results = await s.search(terms);
 
-                if (results.length && gxi.returnFirstResults) {
+                if (results.length && this.returnFirstResults) {
                     return success(results);
                 }
 

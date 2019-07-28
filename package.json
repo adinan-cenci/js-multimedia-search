@@ -1,5 +1,6 @@
 {
   "name": "multimedia-search",
+  "author": "Adinan Cenci <adinancenci@protonmail.com>",
   "version": "1.0.0",
   "description": "multimedia-search",
   "main": "index.js",
@@ -14,7 +15,6 @@
     "url": "git+https://github.com/adinan-cenci/js-multimedia-search.git"
   },
   "keywords": [],
-  "author": "Adinan Cenci <adinancenci@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/adinan-cenci/js-multimedia-search/issues"

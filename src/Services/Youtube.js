@@ -9,7 +9,7 @@ class Youtube extends OnlineService
         {
             var string      = this.scrapJson(html);
             var data        = this.parseResponse(string);
-            return          data.filter(this.compareWithparameters.bind(this));
+            return          data.filter(this.compareWithTerms.bind(this));
         });
     }
 

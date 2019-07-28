@@ -1,3 +1,5 @@
+"use strict";
+
 var Service    = require('./Service.js');
 const http     = require('http');
 const https    = require('https');
@@ -5,31 +7,26 @@ const url      = require('url');
 
 class OnlineService extends Service
 {
-    credentials(credentials)
-    {
-        this.credentials = credentials;
-        return this;
-    }
-
     async search(terms)
     {
         this.terms = terms;
         return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(async (response) =>
         {
             var data        = this.parseResponse(response);
-            return          data.filter(this.compareWithparameters.bind(this));
+            return          data.filter(this.compareWithTerms.bind(this));
         });
     }
 
-    test(terms) 
+    test(terms)
     {
         this.terms = terms;
         console.log(this.getMediaSearchQuery())
     }
 
-    parseResponse($response)
+    parseResponse(response)
     {
-        // ...
+        // parse xml, parse json, scrap it...
+        // it only needs to return an array of objects
     }
 
     getRequestUrl()
@@ -45,8 +42,8 @@ class OnlineService extends Service
     getMediaSearchQuery()
     {
         var query =
-        (this.terms.artistName ? this.terms.artistName+' ' : '')+
-        (this.terms.soundtrack && !this.terms.artistName ? this.terms.soundtrack+' ' : '')+
+        (this.terms.artist ? this.terms.artist+' ' : '')+
+        (this.terms.soundtrack && !this.terms.artist ? this.terms.soundtrack+' ' : '')+
         this.terms.title;
 
         return query;
@@ -92,7 +89,5 @@ OnlineService.makeRequest = async function(address, options = {})
         });
     });
 };
-
-OnlineService.prototype.credentials = {};
 
 module.exports = OnlineService;

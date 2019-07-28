@@ -89,4 +89,5 @@ If you wish to extend the library, you may follow the interface described below.
 | Method                |                                                              |
 | --------------------- | ------------------------------------------------------------ |
 | constructor(settings) | Accepts an settings object that may differ from vendor to vendor.<br />Use it to pass API credentials and other informations.<br />@param object settings |
-| search(terms)         | Returns a promise to be resolved once the search is done.<br />@param object terms An object describing the media to search for, it MUST support ( but may not be limited to ) the attributes: "title", "artist" and "soundtrack".<br />@return Promise |
+| search(terms)         | Returns a promise to be resolved once the search is done.<br />@param object terms An object describing the media to search for, it MUST support ( but may not be limited to ) the attributes: "title", "artist" and "soundtrack".<br />The promise in turn must return an array of objects describing the results. The objects may be described with one or more of the following proprieties:<br />id<br />title<br />artist<br />href: A webpage<br />src: An url to a playable multimedia<br />thumbnailSrc: A picture or a URL<br />@return Promise |
+

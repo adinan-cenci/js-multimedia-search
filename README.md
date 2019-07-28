@@ -31,7 +31,7 @@ Will result in the array:
         "id": 127372473,
         "title": "Rebirth",
         "artist": "Angra",
-        "thumbnailSrc": "https://cdns-images.dzcdn.net/[...]-80-0-0.jpg",
+        "thumbnail": "https://cdns-images.dzcdn.net/[...]-80-0-0.jpg",
         "href": "https://www.deezer.com/track/127372473",
         "preview": "https://cdns-preview-9.dzcdn.net/stream/c-[...]-4.mp3"
     },
@@ -40,7 +40,7 @@ Will result in the array:
         "id": 348808651,
         "title": "Rebirth",
         "artist": "Angra",
-        "thumbnailSrc": "https://cdns-images.dzcdn.net/[...]-80-0-0.jpg",
+        "thumbnail": "https://cdns-images.dzcdn.net/[...]-80-0-0.jpg",
         "href": "https://www.deezer.com/track/348808651",
         "preview": "https://cdns-preview-8.dzcdn.net/stream/c-[...]-3.mp3"
     },
@@ -49,7 +49,7 @@ Will result in the array:
         "id": 93539544,
         "title": "Rebirth",
         "artist": "Angra",
-        "thumbnailSrc": "https://cdns-images.dzcdn.net/[...]-80-0-0.jpg",
+        "thumbnail": "https://cdns-images.dzcdn.net/[...]-80-0-0.jpg",
         "href": "https://www.deezer.com/track/93539544",
         "preview": "https://cdns-preview-8.dzcdn.net/stream/c-[...]-2.mp3"
     },
@@ -58,7 +58,7 @@ Will result in the array:
         "id": 128324271,
         "title": "Rebirth (Live)",
         "artist": "Angra",
-        "thumbnailSrc": "https://cdns-images.dzcdn.net/[...]-80-0-0.jpg",
+        "thumbnail": "https://cdns-images.dzcdn.net/[...]-80-0-0.jpg",
         "href": "https://www.deezer.com/track/128324271",
         "preview": "https://cdns-preview-d.dzcdn.net/stream/c-[...]-4.mp3"
     }
@@ -89,5 +89,5 @@ If you wish to extend the library, you may follow the interface described below.
 | Method                |                                                              |
 | --------------------- | ------------------------------------------------------------ |
 | constructor(settings) | Accepts an settings object that may differ from vendor to vendor.<br />Use it to pass API credentials and other informations.<br />@param object settings |
-| search(terms)         | Returns a promise to be resolved once the search is done.<br />@param object terms An object describing the media to search for, it MUST support ( but may not be limited to ) the attributes: "title", "artist" and "soundtrack".<br />The promise in turn must return an array of objects describing the results. The objects may be described with one or more of the following proprieties:<br />id<br />title<br />artist<br />href: A webpage<br />src: An URL to a playable resource<br />thumbnailSrc: A picture or a URL<br />@return Promise |
+| search(terms)         | Returns a promise to be resolved once the search is done.<br />@param object terms An object describing the media to search for, it MUST support ( but may not be limited to ) the attributes: "title", "artist" and "soundtrack".<br />The promise in turn must return an array of objects describing the results. The objects may be described with one or more of the following proprieties:<br />id<br />title<br />artist<br />href: A webpage<br />src: An URL to a playable resource<br />thumbnail: A picture or an URL<br />@return Promise |
 

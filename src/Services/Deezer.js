@@ -20,11 +20,11 @@ class Deezer extends OnlineService
 
             results.push(
             {
-                'service'       : 'Deezer', 
+                'service'       : 'Deezer',
                 'id'            : content.id,
                 'title'         : content.title_short,
                 'artist'        : content.artist.name,
-                'thumbnailSrc'  : content.album.cover_medium,
+                'thumbnail'     : content.album.cover_medium,
                 'href'          : content.link,
                 'preview'       : content.preview
             });

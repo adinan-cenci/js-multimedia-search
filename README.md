@@ -14,7 +14,7 @@ Let's use Deezer as an example:
 
 ```js
 const Deezer    = require('multimedia-search').Deezer;
-var dz          = new Youtube();
+var dz          = new Deezer();
 
 dz.search({title: 'Heart of Steel', artist: 'Beast in Black'}).then( (results) =>
 {

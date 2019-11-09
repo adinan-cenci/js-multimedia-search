@@ -70,7 +70,7 @@ If you wish to extend the library to accommodate other services, you may follow 
 
 ### Service
 
-**constructor(terms, settings = {})**
+**constructor(terms, settings = {})**  
 *@param object terms*. An object describing the media to search for, it MUST support ( but may not be limited to ) the attributes: 
 
 - title
@@ -79,8 +79,8 @@ If you wish to extend the library to accommodate other services, you may follow 
 
 *@param object settings*. A settings object that may differ from vendor to vendor, optional. Use it to pass API credentials and other informations.
 
-**search()**
-Returns a promise to be resolved once the search is completed. The promise must return an array of objects describing the results.
+**search()**  
+Returns a promise to be resolved once the search is completed. The promise must return an array of objects describing the results.  
 *@return Promise*
 
 The result objects may be described with one or more of the following proprieties:
@@ -93,18 +93,18 @@ The result objects may be described with one or more of the following proprietie
 - src: URL to a playable resource
 - thumbnail: A picture or an URL to one
 
-**isValid(result)**
-It will be used to filter the search results.
+**isValid(result)**  
+It will be used to filter the search results.  
 @param object result. 
 
 ### OnlineService
 
 It extends Service.
 
-**static generateSearchUrl(terms, settings = null)**
-Return an URL to be used in search requests. 
-*@param object terms*. Object describing the music we are looking for.
-*@param object settings.* Optional, object containing API credentials, depends on the vendor.
+**static generateSearchUrl(terms, settings = null)**  
+Return an URL to be used in search requests.   
+*@param object terms*. Object describing the music we are looking for.  
+*@param object settings.* Optional, object containing API credentials, depends on the vendor.  
 *@return string*
 
 

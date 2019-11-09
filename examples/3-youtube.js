@@ -1,7 +1,7 @@
 Youtube = require('../src/Services/Youtube');
 
-yt = new Youtube();
-yt.search({'artist': 'Angra', 'title': 'Rebirth'}).then(function(result)
+yt = new Youtube({'artist': 'Angra', 'title': 'Rebirth'});
+yt.search().then(function(result)
 {
     console.log(result);
 })

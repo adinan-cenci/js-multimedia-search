@@ -1,12 +1,11 @@
-A library to find musics.
+A library to find music on the Internet.
 
-### Services
-
-The library currently supports the following services:
+There are dozens of audio streaming providers out there, this is an attempt to standardize how to search for musics and read the results from different sources. The library currently supports the following services:
 
 - YouTube
 - Deezer
 - SliderKz
+- SoundCloud
 
 ## How to use it
 
@@ -14,9 +13,9 @@ Let's use Deezer as an example:
 
 ```js
 const Deezer    = require('multimedia-search').Deezer;
-var dz          = new Deezer();
+var dz          = new Deezer({title: 'Rebirth', artist: 'Angra'});
 
-dz.search({title: 'Heart of Steel', artist: 'Beast in Black'}).then( (results) =>
+dz.search().then( (results) =>
 {
     console.log(results);
 });
@@ -65,29 +64,51 @@ Will result in the array:
 ]
 ```
 
-### Searching in multiple services at once
+## The interface
 
-```javascript
-const Search  = require('multimedia-search').Search;
-const Deezer  = require('multimedia-search').Deezer;
-const Youtube = require('multimedia-search').Youtube;
+If you wish to extend the library to accommodate other services, you may follow the interface described below.
 
-var sh = new Search();
-sh.addService(new Deezer()).addService(new Youtube());
+### Service
 
-sh.returnFirst(false); // If true, the serch will stop at the first service that returns something
+**constructor(terms, settings = {})**
+*@param object terms*. An object describing the media to search for, it MUST support ( but may not be limited to ) the attributes: 
 
-sh.search({title: 'Magic Never Dies', artist: 'Power Quest'}).then( (results) =>
-    console.log(results);
-);
-```
+- title
+- artist
+- soundtrack
 
-## Extending
+*@param object settings*. A settings object that may differ from vendor to vendor, optional. Use it to pass API credentials and other informations.
 
-If you wish to extend the library, you may follow the interface described below.
+**search()**
+Returns a promise to be resolved once the search is completed. The promise must return an array of objects describing the results.
+*@return Promise*
 
-| Method                |                                                              |
-| --------------------- | ------------------------------------------------------------ |
-| constructor(settings) | Accepts an settings object that may differ from vendor to vendor.<br />Use it to pass API credentials and other informations.<br />@param object settings |
-| search(terms)         | Returns a promise to be resolved once the search is done.<br />@param object terms An object describing the media to search for, it MUST support ( but may not be limited to ) the attributes: "title", "artist" and "soundtrack".<br />The promise in turn must return an array of objects describing the results. The objects may be described with one or more of the following proprieties:<br />id<br />title<br />artist<br />href: A webpage<br />src: An URL to a playable resource<br />thumbnail: A picture or an URL<br />@return Promise |
+The result objects may be described with one or more of the following proprieties:
+
+- id
+- title
+- artist
+- album
+- href: Web-page
+- src: URL to a playable resource
+- thumbnail: A picture or an URL to one
+
+**isValid(result)**
+It will be used to filter the search results.
+@param object result. 
+
+### OnlineService
+
+It extends Service.
+
+**static generateSearchUrl(terms, settings = null)**
+Return an URL to be used in search requests. 
+*@param object terms*. Object describing the music we are looking for.
+*@param object settings.* Optional, object containing API credentials, depends on the vendor.
+*@return string*
+
+
+
+
+
 

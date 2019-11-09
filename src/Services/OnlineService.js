@@ -7,31 +7,24 @@ const url      = require('url');
 
 class OnlineService extends Service
 {
-    async search(terms)
+    async search()
     {
-        this.terms = terms;
-        return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(async (response) =>
+        return OnlineService.httpRequest(this.getSearchUrl(), this.getRequestOptions()).then(async (response) =>
         {
-            var data        = this.parseResponse(response);
-            return          data.filter(this.compareWithTerms.bind(this));
+            var results  = this.parseResponse(response);
+            return       results.filter(this.isValid.bind(this));
         });
-    }
-
-    test(terms)
-    {
-        this.terms = terms;
-        console.log(this.getMediaSearchQuery())
     }
 
     parseResponse(response)
     {
-        // parse xml, parse json, scrap it...
+        // parse xml, parse json...
         // it only needs to return an array of objects
     }
 
-    getRequestUrl()
+    getSearchUrl()
     {
-        return 'http://the-web-site.com?q='+encodeURIComponent(this.getMediaSearchQuery());
+        return this.constructor.generateSearchUrl(this.terms, this.settings);
     }
 
     getRequestOptions()
@@ -39,55 +32,64 @@ class OnlineService extends Service
         return {};
     }
 
-    getMediaSearchQuery()
+    static generateSearchUrl(terms, settings = null) 
+    {
+        var query = OnlineService.generateSearchQuery(terms);
+        return 'http://the-web-site.com?q='+encodeURIComponent(query);
+    }
+
+    /**
+     * It will generate a human readable string describing the music.
+     */
+    static generateSearchQuery(terms) 
     {
         var query =
-        (this.terms.artist ? this.terms.artist+' ' : '')+
-        (this.terms.soundtrack && !this.terms.artist ? this.terms.soundtrack+' ' : '')+
-        this.terms.title;
+        (terms.artist ? terms.artist+' ' : '') +
+        (terms.soundtrack && !terms.artist ? terms.soundtrack+' ' : '') + 
+        terms.title;
 
         return query;
     }
-}
 
-OnlineService.makeRequest = async function(address, options = {})
-{
-    var myUrl     = url.parse(address);
-    var protocol  = myUrl.protocol == 'https:' ? https : http;
-
-    var defaultOptions =
+    static async httpRequest(address, options = {})
     {
-        hostname  : myUrl.hostname,
-        port      : myUrl.port,
-        path      : myUrl.path,
-        agent     : false  // Create a new agent just for this one request
-    };
+        var myUrl     = url.parse(address);
+        var protocol  = myUrl.protocol == 'https:' ? https : http;
 
-    var options = {...defaultOptions, ...options};
-
-    return new Promise(async function(success, fail)
-    {
-        protocol.get(options, (res) =>
+        var defaultOptions =
         {
-            if (res.statusCode !== 200) {
-                fail('Error: ' + res.statusCode);
-            }
+            hostname  : myUrl.hostname,
+            port      : myUrl.port,
+            path      : myUrl.path,
+            agent     : false  // Create a new agent just for this one request
+        };
 
-            res.setEncoding('utf8');
+        var options = {...defaultOptions, ...options};
 
-            let rawData = '';
-
-            res.on('data', function(chunk)
+        return new Promise(async function(success, fail)
+        {
+            protocol.get(options, (res) =>
             {
-                rawData += chunk;
-            });
+                if (res.statusCode !== 200) {
+                    fail('Error: ' + res.statusCode);
+                }
 
-            res.on('end', function()
-            {
-                success(rawData);
+                res.setEncoding('utf8');
+
+                let rawData = '';
+
+                res.on('data', function(chunk)
+                {
+                    rawData += chunk;
+                });
+
+                res.on('end', function()
+                {
+                    success(rawData);
+                });
             });
         });
-    });
-};
+    }
+}
 
 module.exports = OnlineService;

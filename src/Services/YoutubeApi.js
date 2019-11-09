@@ -2,11 +2,6 @@ var OnlineService = require('./OnlineService.js');
 
 class YoutubeApi extends OnlineService
 {
-    getRequestUrl()
-    {
-        return 'https://www.googleapis.com/youtube/v3/search/?part=snippet&key='+this.settings.apiKey+'&q='+encodeURIComponent(this.getMediaSearchQuery());
-    }
-
     parseResponse(string)
     {
         var json       = JSON.parse(string);
@@ -24,6 +19,12 @@ class YoutubeApi extends OnlineService
         }
 
         return results;
+    }
+
+    static generateSearchUrl(terms, settings = null) 
+    {
+        var query = OnlineService.generateSearchQuery(terms);
+        return 'https://www.googleapis.com/youtube/v3/search/?part=snippet&key='+settings.apiKey+'&q='+encodeURIComponent(query);
     }
 }
 

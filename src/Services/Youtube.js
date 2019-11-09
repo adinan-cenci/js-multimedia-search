@@ -2,35 +2,19 @@ var OnlineService = require('./OnlineService.js');
 
 class Youtube extends OnlineService
 {
-    async search(terms)
+    async search()
     {
-        this.terms  = terms;
-        return OnlineService.makeRequest(this.getRequestUrl(), this.getRequestOptions()).then(async (html) =>
+        return OnlineService.httpRequest(this.getSearchUrl(), this.getRequestOptions()).then(async (html) =>
         {
-            var string      = this.scrapJson(html);
-            var data        = this.parseResponse(string);
-            return          data.filter(this.compareWithTerms.bind(this));
+            var response    = Youtube.scrapJson(html);
+            var results     = this.parseResponse(response);
+            return          results.filter(this.isValid.bind(this));
         });
-    }
-
-    getRequestUrl()
-    {
-        return 'https://www.youtube.com/results?search_query='+encodeURIComponent(this.getMediaSearchQuery());
     }
 
     getRequestOptions()
     {
         return {'headers': {'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36'}};
-    }
-
-    scrapJson(html)
-    {
-        var matches = html.match(/window\[\"ytInitialData\"\] ?= ?(.+);\n +window/);
-        if (! matches) {
-            return null;
-        }
-
-        return matches[1];
     }
 
     parseResponse(string)
@@ -51,12 +35,28 @@ class Youtube extends OnlineService
                 'service'       : 'YouTube',
                 'id'            : content.videoRenderer.videoId,
                 'title'         : content.videoRenderer.title.runs[0].text,
-                'thumbnailSrc'  : content.videoRenderer.thumbnail.thumbnails[0].url,
+                'thumbnail'     : content.videoRenderer.thumbnail.thumbnails[0].url,
                 'href'          : 'http://youtube.com/watch?v='+content.videoRenderer.videoId
             });
         }
 
         return results;
+    }
+
+    static scrapJson(html)
+    {
+        var matches = html.match(/window\[\"ytInitialData\"\] ?= ?(.+);\n +window/);
+        if (! matches) {
+            return null;
+        }
+
+        return matches[1];
+    }
+
+    static generateSearchUrl(terms, settings = null) 
+    {
+        var query = OnlineService.generateSearchQuery(terms);
+        return 'https://www.youtube.com/results?search_query='+encodeURIComponent(query);
     }
 }
 

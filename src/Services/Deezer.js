@@ -2,11 +2,6 @@ var OnlineService = require('./OnlineService.js');
 
 class Deezer extends OnlineService
 {
-    getRequestUrl()
-    {
-        return 'https://api.deezer.com/search?q='+encodeURIComponent(this.getMediaSearchQuery());
-    }
-
     parseResponse(string)
     {
         var json        = JSON.parse(string);
@@ -31,6 +26,12 @@ class Deezer extends OnlineService
         }
 
         return results;
+    }
+
+    static generateSearchUrl(terms, settings = null) 
+    {
+        var query = OnlineService.generateSearchQuery(terms);
+        return 'https://api.deezer.com/search?q='+encodeURIComponent(query);
     }
 }
 
